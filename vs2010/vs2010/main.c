@@ -1,18 +1,4 @@
-﻿#include <stdio.h> // 입출력함수(standard input/output) 헤더파일 안의 내용들을 포함
-#include <stdlib.h>
-#ifdef WIN32
-#include <windows.h>          // mi serve per la funzione di Sleep();
-#endif
-#ifdef __unix__
-#include <unistd.h>
-#endif // __unix__
-
-#include <conio.h>            // Mi serve per la funzione di getch e ptuch e kbhit(funzione che realizza condizione se premo un tasto)
-#include <time.h>            // srand( time( NULL ) );  num=1 +rand()%n  per numeri casuali
-
-
-
-
+﻿
 
 #define dim 18
 
