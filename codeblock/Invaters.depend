@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1449230948 source:c:\informatica\2014\invaters\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<unistd.h>
+	<conio.h>
+	<time.h>
+
