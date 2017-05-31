@@ -1289,7 +1289,7 @@ int main()                                    // funzione principale del gioco
 {
     int campo[dim][dim],i,l,mossa=0,condizione,velo=100,diff;
     int vittoria=0, punteggio, fine_partita=0, livello, suono, vite;      // Inizializzo le varie variabili del main, fra cui anche il puntatore per il file delle impostazioni
-    int scelta,record;
+    int scelta=0,record;
     char nome[dim];
     FILE *fp;
 
