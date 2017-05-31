@@ -934,16 +934,14 @@ int Victory_condition(int vet[dim][dim])
 }
 
 
-void mossa_giocatore(int vet[dim][dim],int azione,int sound)                    // Funzione per le azioni che può fare il giocatore, premendo sul tastierino numerico
+void move_player(int vet[dim][dim],int action,int sound)
 {
-
-
     int i,l;
-    switch(azione)
+    switch(action) //azione(행동, action)->입력받은 키보드의 아스키코드 값
     {
-    case 52:
-        for(i=0;i<dim;i++){
-            for(l=0;l<dim;l++){                                     // 52 asci sta per 4, ovvero azione per andare a sinistra
+    case 75:		            //아스키코드가 75인 왼쪽 방향키를 누르면 주인공 객체 왼쪽이동
+        for(i=0;i<dim;i++){    //52 ASCII stands for 4, action to go left
+            for(l=0;l<dim;l++){
                 if(vet[i][l]==2){
                         if(l>1){
                     vet[i][l]=0;
@@ -954,10 +952,10 @@ void mossa_giocatore(int vet[dim][dim],int azione,int sound)                    
         }
 
         break;
-    case 54:
-        for(i=0;i<dim;i++){
+    case 77:	                 //아스키코드가 77인 오른쪽 방향키를 누르면 주인공 객체 오른쪽이동
+        for(i=0;i<dim;i++){        //54 ASCII stands for 6, action to go right
             for(l=dim;l>0;l--){
-                if(vet[i][l]==2){                             // 54 asci sta per 6, ovvero azione per andare a destra
+                if(vet[i][l]==2){
                         if(l<dim-2){
                     vet[i][l]=0;
                     vet[i][l+1]=2;
@@ -968,9 +966,9 @@ void mossa_giocatore(int vet[dim][dim],int azione,int sound)                    
         }
 
         break;
-    case 53:
-        for(i=0;i<dim;i++){
-            for(l=0;l<dim;l++){                           // 53 asci sta per 5, ovvero azione per sparare
+    case 32:	                   //아스키코드가 32인 스페이스바를 누르면 주인공 객체 총알 발사
+        for(i=0;i<dim;i++){         //53 ASCII stands for 5, action to shoot
+            for(l=0;l<dim;l++){
                 if(vet[i][l]==2){
                     vet[i-1][l]=1;
                     if (sound==1){
@@ -983,7 +981,7 @@ void mossa_giocatore(int vet[dim][dim],int azione,int sound)                    
 
         break;
     default:
-         if (sound==1){
+         if (sound==1){		//다른키 누르면 소리 출력
         Beep(300,25);
         }
 
@@ -992,6 +990,7 @@ void mossa_giocatore(int vet[dim][dim],int azione,int sound)                    
 
 
 }
+
 
 void game_level(int vet[dim][dim],int lv)	//레벨별 화면구성 배열 값 설정
 {
