@@ -1373,9 +1373,9 @@ int main()                                    // funzione principale del gioco
 
 
                      sleep_mil(velo);                          // velocità di gioco grazie ad uno sleep del programma
-                     condizione=kbhit();                    // se durante il periodo si è premuto un tasto allora viene imagazzinato il valore come mossa del giocatore,
+                     condizione=_kbhit();                    // se durante il periodo si è premuto un tasto allora viene imagazzinato il valore come mossa del giocatore,
                      if(condizione==1){                     // altrimenti va avanti il gioco
-                         mossa=getch();
+                         mossa=_getch();
                          mossa_giocatore(campo,mossa,suono);
                      }
 
