@@ -57,6 +57,7 @@ void set_color(short Color)
   HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE); // Funzione che mi permette di cambiare colore del testo;
   SetConsoleTextAttribute(hCon,Color);
 }
+
 void boss(int vet[dim][dim],int dif)
 {
     int i,l,num,flag,k,spara;
@@ -425,7 +426,8 @@ void ia_boss2(int vet[dim][dim],int dif)
 
 }
 
-void intelligenza_artificiale(int vet[dim][dim],int dif)         // Funzione che gestisce le mosse del computer per ogni navicella avversaria
+void artificial_intelligence (int vet[dim][dim],int dif)         
+// Function that manages computer moves for each opposing ship
 {
     int i,l,num,flag,k,spara;
 
@@ -437,343 +439,464 @@ void intelligenza_artificiale(int vet[dim][dim],int dif)         // Funzione che
             {
                 if(vet[i-1][l]==5&&vet[i][l-1]==0)
                 {
-                    if(vet[i][l]==3){
+                    if(vet[i][l]==3)
+					{
                        vet[i][l-1]=6;
-                    }else{
+                    }
+					else
+					{
                         vet[i][l-1]=13;
                     }
-                    vet[i][l]=0;                         // questi due if servono perchè la navicella eviti un proiettile del compagno, se è possibile
-
-                }else if(vet[i-1][l]==5&&vet[i][l+1]==0)
+                    vet[i][l]=0;                         
+                  // These two if they serve because the ship avoids a bullet bullet if it is possible.
+                }
+				else if(vet[i-1][l]==5&&vet[i][l+1]==0)
                 {
-                     if(vet[i][l]==3){
-                       vet[i][l+1]=6;
-                    }else{
-                        vet[i][l+1]=13;
+                    if(vet[i][l]==3)
+					{
+                      vet[i][l+1]=6;
                     }
-
+					 else
+					{
+                       vet[i][l+1]=13;
+                     }
                     vet[i][l]=0;
-
-                }else
+                }
+				else
                 {
 
+					num=1+rand()%dif;                           
+					// I generate a random number that causes different behaviors.
 
+					// Behave 1: go left or if he can not shoot
+					if(num==1)
+					{
+						if(vet[i][l-1]==0&&l!=1)
+						{
+							if(vet[i][l]==3)
+							{
+							   vet[i][l-1]=6;
+							}
+							else
+							{
+								vet[i][l-1]=13;
+							}               
+								vet[i][l]=0;
+						}
+						else
+						{
+							flag=0;
+							for(k=i+1;k<dim;k++)
+							{
+								if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13)
+								{    // Check if he has the free throw trajectory, if he has a front mate returns 1
+									flag=1;
+								}
+							}
+							if(flag==0)
+							{
+									spara=1+rand()%10;           
+									// Generates a number between 1 and 10, if it is equal the shot fails, otherwise it does not shoot.
+								if(spara%2==0)
+								{
+											if(vet[i+2][l]==0)
+											{
+												vet[i+1][l]=5;
+											}
+									if(vet[i][l]==3)
+									{
+									   vet[i][l]=6;
+									}
+									else
+									{
+										vet[i][l]=13;
+									}
+								}
+							}
+						}
+					}
+					// Behavior 2: go on, and if it can not shoot
+					if(num==2)
+					{                         
+						if(vet[i-1][l]==0&&i!=1)
+						{
+							if(vet[i][l]==3)
+							{
+							   vet[i-1][l]=6;
+							}
+							else
+							{
+								vet[i-1][l]=13;
+							}
+								vet[i][l]=0;
+						}
+						else
+						{
+							flag=0;
+							for(k=i+1;k<dim;k++)
+							{
+								if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13)
+								{
+									flag=1;
+								}
+							}
+							if(flag==0)
+							{
+								spara=1+rand()%10;
+								if(spara%2==0)
+								{
+									 if(vet[i+2][l]==0)
+									  {
+											vet[i+1][l]=5;
+									  }
+									  if(vet[i][l]==3)
+									  {
+									   vet[i][l]=6;
+									  }
+									  else
+									  {
+										vet[i][l]=13;
+									  }
+								}
+							 }
+						}
+					}
+					// Behavior 3: Go to the right, and if he can not shoot
+					if(num==3)
+					{
+						if(vet[i][l+1]==0&&l!=dim-2)
+						{
+							if(vet[i][l]==3)
+							{
+							   vet[i][l+1]=6;
+							}
+							else
+							{
+								vet[i][l+1]=13;
+							}                                      
+								vet[i][l]=0;
+						}
+						else
+						{
+							flag=0;
+							for(k=i+1;k<dim;k++)
+							{
+								if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13)
+								{
+									flag=1;
+								}
+							}
+							if(flag==0)
+							{
+									spara=1+rand()%10;
+								if(spara%2==0)
+								{
+										 if(vet[i+2][l]==0)
+										 {
+												vet[i+1][l]=5;
+										  }
+										if(vet[i][l]==3)
+										{
+										   vet[i][l]=6;
+										}
+										else
+										{
+											vet[i][l]=13;
+										}
+								}
+							}
+						}
+					}
 
-                num=1+rand()%dif;                           //genero un numero random che provoca diversi comportamneti
+					 // Behavior 4: go down, and if he can not shoot
+					if(num==4)
+					{
+						if(vet[i+1][l]==0&&i!=(dim/2)-2)
+						{
+							if(vet[i][l]==3)
+							{
+							   vet[i+1][l]=6;
+							}
+							else
+							{
+								vet[i+1][l]=13;
+							}
+								vet[i][l]=0;                   
+						}
+						else
+						{
+							flag=0;
+							for(k=i+1;k<dim;k++)
+							{
+								if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13)
+								{
+									flag=1;
+								}
+							}
+							if(flag==0)
+							{
+									spara=1+rand()%10;
+								if(spara%2==0)
+								{
+									 if(vet[i+2][l]==0)
+									  {
+										 vet[i+1][l]=5;
+									  }
+									 if(vet[i][l]==3)
+									 {
+									   vet[i][l]=6;
+									 }
+									 else
+									 {
+										vet[i][l]=13;
+									 }
+								}
+							}
+						}
+					}
 
-
-                if(num==1){
-                    if(vet[i][l-1]==0&&l!=1){
-                    if(vet[i][l]==3){
-                       vet[i][l-1]=6;
-                    }else{
-                        vet[i][l-1]=13;
-                    }                // comportmaneto 1: va a sinistra oppure se non può spara
-                        vet[i][l]=0;
-
-                    }else{
-                        flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13){    //controlla se ha la traiettoria di tiro libera, se ha un compagno davanti restituisce 1
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;            // genera un numero fra 1 e 10 , se è pari lo sparo va a buon fine, altrimenti non spara
-                    if(spara%2==0){
-                            if(vet[i+2][l]==0){
-                                vet[i+1][l]=5;
-                            }
-                    if(vet[i][l]==3){
-                       vet[i][l]=6;
-                    }else{
-                        vet[i][l]=13;
-                    }
-                    }
-                    }
-                    }
-
+					//Behavior 5: shoot, obviously avoiding if in front of you has an ally.
+					if(num==5)
+					{
+						flag=0;
+						for(k=i+1;k<dim;k++)
+						{
+							if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13)
+							{   
+								flag=1;
+							}
+						}
+						if(flag==0)
+						{
+							spara=1+rand()%10;
+							if(spara%2==0)
+							{
+								if(vet[i+2][l]==0)
+								 {
+									vet[i+1][l]=5;
+								 }
+								 if(vet[i][l]==3)
+								 {
+								   vet[i][l]=6;
+								 }
+								 else
+								 {
+									vet[i][l]=13;
+								 }
+							 }
+						}
+					}
                 }
-                if(num==2){                            // comportamento 2: va su, e se non può spara
-                    if(vet[i-1][l]==0&&i!=1){
-                    if(vet[i][l]==3){
-                       vet[i-1][l]=6;
-                    }else{
-                        vet[i-1][l]=13;
-                    }
-                        vet[i][l]=0;
-
-                    }else{
-                        flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13){
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara%2==0){
-                         if(vet[i+2][l]==0){
-                                vet[i+1][l]=5;
-                            }
-                      if(vet[i][l]==3){
-                       vet[i][l]=6;
-                    }else{
-                        vet[i][l]=13;
-                    }
-                    }
-                    }
-                    }
-
-
-                }
-                if(num==3){
-                    if(vet[i][l+1]==0&&l!=dim-2){
-                    if(vet[i][l]==3){
-                       vet[i][l+1]=6;
-                    }else{
-                        vet[i][l+1]=13;
-                    }                                      // comportamento 3: va a destra, e se non può spara
-                        vet[i][l]=0;
-
-                    }else{
-                        flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13){
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara%2==0){
-                         if(vet[i+2][l]==0){
-                                vet[i+1][l]=5;
-                            }
-                    if(vet[i][l]==3){
-                       vet[i][l]=6;
-                    }else{
-                        vet[i][l]=13;
-                    }
-                    }
-                    }
-                    }
-
-
-                }
-                if(num==4){
-                    if(vet[i+1][l]==0&&i!=(dim/2)-2){
-                    if(vet[i][l]==3){
-                       vet[i+1][l]=6;
-                    }else{
-                        vet[i+1][l]=13;
-                    }
-                        vet[i][l]=0;                      // comportamento 4: va giu, e se non può spara
-
-                    }else{
-                        flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13){
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara%2==0){
-                         if(vet[i+2][l]==0){
-                                vet[i+1][l]=5;
-                            }
-                     if(vet[i][l]==3){
-                       vet[i][l]=6;
-                     }else{
-                        vet[i][l]=13;
-                     }
-
-                    }
-                    }
-                    }
-
-                }
-                if(num==5){
-                    flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==3||vet[k][l]==6||vet[k][l]==12||vet[k][l]==13){    // comportamento 5: spara, ovviamente evitando se davanti a se ha un alleato
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara%2==0){
-                        if(vet[i+2][l]==0){
-                                vet[i+1][l]=5;
-                            }
-                     if(vet[i][l]==3){
-                       vet[i][l]=6;
-                     }else{
-                        vet[i][l]=13;
-                     }
-                    }
-                    }
-                }
-
-                }
-
             }
         }
     }
-    // INTELLIGENZA BOMBARDIERE
+// BOMBARDIERE INTELLIGENCE
     for(i=0;i<dim;i++){
         for(l=0;l<dim;l++){
             if(vet[i][l]==7)
             {
                 if(vet[i-1][l]==8&&vet[i][l-1]==0)
                 {
-                    vet[i][l]=0;                             // questi due if servono perchè la navicella eviti un proiettile del compagno, se è possibile
+                    vet[i][l]=0;                             
+					// These two if they serve because the ship avoids a bullet bullet if it is possible.
                     vet[i][l-1]=9;
-                }else if(vet[i-1][l]==8&&vet[i][l+1]==0)
+                }
+				else if(vet[i-1][l]==8&&vet[i][l+1]==0)
                 {
                     vet[i][l]=0;
                     vet[i][l+1]=9;
-
-                }else
-                {
-
-
-
-                num=1+rand()%dif;                           //genero un numero random che provoca diversi comportamneti
-
-
-                if(num==1){
-                    if(vet[i][l-1]==0&&l!=1){              // comportmaneto 1: va a sinistra oppure se non può spara
-                        vet[i][l]=0;
-                        vet[i][l-1]=9;
-                    }else{
-                        flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==7||vet[k][l]==9){    //controlla se ha la traiettoria di tiro libera, se ha un compagno davanti restituisce 1
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;            // genera un numero fra 1 e 10 , se è pari lo sparo va a buon fine, altrimenti non spara
-                    if(spara>7){
-                      if(vet[i+2][l]==0){
-                        vet[i+1][l]=8;
-                        }
-                        vet[i][l]=9;
-                    }
-                    }
-                    }
-
                 }
-                if(num==2){                            // comportamento 2: va su, e se non può spara
-                    if(vet[i-1][l]==0&&i!=1){
+				else
+                {
+					num=1+rand()%dif;                          
+					// I generate a random number that causes different behaviors.
+
+					// Behave 1: go left or if he can not shoot
+					if(num==1)
+					{
+						if(vet[i][l-1]==0&&l!=1)
+						{              
+							vet[i][l]=0;
+							vet[i][l-1]=9;
+						}
+						else
+						{
+							flag=0;
+							for(k=i+1;k<dim;k++)
+							{
+								if(vet[k][l]==7||vet[k][l]==9)
+								{     
+									// Check if he has the free throw trajectory, if he has a front mate returns 1
+									flag=1;
+								}
+							}
+							if(flag==0)
+							{
+									spara=1+rand()%10;           
+									// Generates a number between 1 and 10,
+									//if it is equal the shot fails, otherwise it does not shoot
+									
+									if(spara>7)
+									{
+									  if(vet[i+2][l]==0)
+									  {
+										vet[i+1][l]=8;
+									  }
+										vet[i][l]=9;
+									}
+							}
+						}
+					}
+				
+				// Behavior 2: go on, and if it can not shoot
+                if(num==2)
+				{                           
+                    if(vet[i-1][l]==0&&i!=1)
+					{
                         vet[i][l]=0;
                         vet[i-1][l]=9;
-                    }else{
+                    }
+					else
+					{
                         flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==7||vet[k][l]==9){
-                            flag=1;
-                        }
+						for(k=i+1;k<dim;k++)
+						{
+							if(vet[k][l]==7||vet[k][l]==9)
+							{
+								flag=1;
+							}
+						}
+						if(flag==0)
+						{
+								spara=1+rand()%10;
+								if(spara>7)
+								{
+									if(vet[i+2][l]==0)
+									{
+									vet[i+1][l]=8;
+									}
+									vet[i][l]=9;
+								}
+						}
                     }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara>7){
-                        if(vet[i+2][l]==0){
-                        vet[i+1][l]=8;
-                        }
-                        vet[i][l]=9;
-                    }
-                    }
-                    }
-
-
                 }
-                if(num==3){
-                    if(vet[i][l+1]==0&&l!=dim-2){         // comportamento 3: va a destra, e se non può spara
+				
+				// Behavior 3: Go to the right, and if he can not shoot
+                if(num==3)
+				{
+                    if(vet[i][l+1]==0&&l!=dim-2)
+					{         
                         vet[i][l]=0;
                         vet[i][l+1]=9;
-                    }else{
+                    }
+					else
+					{
                         flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==7||vet[k][l]==9){
-                            flag=1;
-                        }
+						for(k=i+1;k<dim;k++)
+						{
+							if(vet[k][l]==7||vet[k][l]==9)
+							{
+								flag=1;
+							}
+						}
+						if(flag==0)
+						{
+								spara=1+rand()%10;
+								if(spara>7)
+								{
+									if(vet[i+2][l]==0)
+									{
+									vet[i+1][l]=8;
+									}
+									vet[i][l]=9;
+								}
+						}
                     }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara>7){
-                        if(vet[i+2][l]==0){
-                        vet[i+1][l]=8;
-                        }
-                        vet[i][l]=9;
-                    }
-                    }
-                    }
-
-
                 }
-                if(num==4){
-                    if(vet[i+1][l]==0&&i!=(dim/2)-2){
+
+				//Behavior 4: go down, and if he can not shoot
+                if(num==4)
+				{
+                    if(vet[i+1][l]==0&&i!=(dim/2)-2)
+					{
                         vet[i][l]=0;
-                        vet[i+1][l]=9;                // comportamento 4: va giu, e se non può spara
-                    }else{
+                        vet[i+1][l]=9;                
+                    }
+					else
+					{
                         flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==7||vet[k][l]==9){
-                            flag=1;
-                        }
-                    }
-                    if(flag==0){
-                            spara=1+rand()%10;
-                    if(spara>7){
-                        if(vet[i+2][l]==0){
-                        vet[i+1][l]=8;
-                        }
-                        vet[i][l]=9;
-                    }
-                    }
-                    }
-
+						for(k=i+1;k<dim;k++)
+						{
+							if(vet[k][l]==7||vet[k][l]==9)
+							{
+								flag=1;
+							}
+						}
+						if(flag==0)
+						{
+								spara=1+rand()%10;
+								if(spara>7)
+								{
+									if(vet[i+2][l]==0)
+									{
+									vet[i+1][l]=8;
+									}
+									vet[i][l]=9;
+								}
+						}
+					}
                 }
-                if(num==5){
+				
+				// Behavior 5: shoot, obviously avoiding if in front of you has an ally
+                if(num==5)
+				{
                     flag=0;
-                    for(k=i+1;k<dim;k++){
-                        if(vet[k][l]==7||vet[k][l]==9){    // comportamento 5: spara, ovviamente evitando se davanti a se ha un alleato
+                    for(k=i+1;k<dim;k++)
+					{
+                        if(vet[k][l]==7||vet[k][l]==9)
+						{    
                             flag=1;
                         }
                     }
-                    if(flag==0){
+                    if(flag==0)
+					{
                             spara=1+rand()%10;
-                    if(spara%2==0){
-                        if(vet[i+2][l]==0){
-                        vet[i+1][l]=8;
-                        }
-                        vet[i][l]=9;
-                    }
+							if(spara%2==0)
+							{
+								if(vet[i+2][l]==0)
+								{
+								vet[i+1][l]=8;
+								}
+								vet[i][l]=9;
+							}
                     }
                 }
-
                 }
-
             }
         }
     }
 
 
-    for(i=0;i<dim;i++){
-        for(l=0;l<dim;l++){
-            if(vet[i][l]==6){
+    for(i=0;i<dim;i++)
+	{
+        for(l=0;l<dim;l++)
+		{
+            if(vet[i][l]==6)
+			{
                 vet[i][l]=3;
-            }else if(vet[i][l]==9){
+            }
+			else if(vet[i][l]==9)
+			{
                 vet[i][l]=7;
-            }else if(vet[i][l]==13){
+            }
+			else if(vet[i][l]==13)
+			{
                 vet[i][l]=12;
             }
         }
     }
-
 }
+
 
 int condizione_vittoria(int vet[dim][dim])            // Funzione per verificare la condizione di vittoria o sconfitta del giocatore
 {
