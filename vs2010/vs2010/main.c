@@ -1419,40 +1419,40 @@ int attacked(int vet[dim][dim],int sound)          // funzione che controlla se 
 
 int main()                                    // funzione principale del gioco
 {
-    int campo[dim][dim],i,l,mossa=0,condizione,velo=100,diff;
-    int vittoria=0, punteggio, fine_partita=0, livello, suono, vite;      // Inizializzo le varie variabili del main, fra cui anche il puntatore per il file delle impostazioni
-    int scelta=0,record;
-    char nome[dim];
+    int cate[dim][dim],i,l,move=0,condition,speed=100,diff;
+    int victory=0, score, final_game=0, level, sound, life;      // Inizializzo le varie variabili del main, fra cui anche il puntatore per il file delle impostazioni
+    int selection=0,record;
+    char name[dim];
     FILE *fp;
 
     fp=fopen("dati.dat","r");
     if(fp==NULL){
-        printf("\nERRORE APERTURA FILE!");
+        printf("\nERROR OPENING FILE!");
         sleep_mil(3000);                                                           // apertura e lettura del file delle impostazioni
         return 1;
     }
 
-    if(fscanf(fp,"%d %d %d %d %s",&velo,&diff,&suono,&record,nome)==EOF){
-        printf("\nERRORE LETTURA FILE!");
+    if(fscanf(fp,"%d %d %d %d %s",&speed,&diff,&sound,&record,name)==EOF){
+        printf("\nERROR READING FILE!");
         sleep_mil(3000);
         return 1;
     }
     fclose(fp);
 
 
-    while(scelta!=5)                                                  //  ciclo while dei menu finche' non si seleziona l'uscita dal gioco
+    while(selection!=5)                                                  //  ciclo while dei menu finche' non si seleziona l'uscita dal gioco
     {
          system("cls");
 
            fp=fopen("dati.dat","r");
          if(fp==NULL){
-             printf("\nERRORE APERTURA FILE!");
+             printf("\nERROR OPENING FILE!");
              sleep_mil(3000);                                                           // apertura e lettura del file delle impostazioni
              return 1;
          }
 
-         if(fscanf(fp,"%d %d %d %d %s",&velo,&diff,&suono,&record,nome)==EOF){
-             printf("\nERRORE LETTURA FILE!");
+         if(fscanf(fp,"%d %d %d %d %s",&speed,&diff,&sound,&record,name)==EOF){
+             printf("\nERROR READING FILE!");
              sleep_mil(3000);
              return 1;
          }
@@ -1461,174 +1461,174 @@ int main()                                    // funzione principale del gioco
          printf("\n     SPACE INVATERS v0.4                   \n");
          printf("\n                                            ");
          printf("\n                                            ");           //stampa a schermo il menu del gioco e attende la scelta del giocatore
-         printf("\n   1)Nuova partita                          ");
-         printf("\n   2)Guida gioco                            ");
-         printf("\n   3)Impostazioni                           ");
-         printf("\n   4)Crediti                                ");
-         printf("\n   5)Uscita                                \n");
+         printf("\n   1)New Game                               ");
+         printf("\n   2)Game Guide                             ");
+         printf("\n   3)Setting                                ");
+         printf("\n   4)Credits                                ");
+         printf("\n   5)Exit                                 \n");
          sleep_mil(500);
          Beep(450,200);
-         printf("\n\n  scelta: ");
+         printf("\n\n  choice: ");
          fflush(stdin);
-         scanf("%d",&scelta);
+         scanf("%d",&selection);
 
 
-         switch(scelta)
+         switch(selection)
          {
 
              case 1:
-             vite=3;
-             livello=1;
-             punteggio=0;
-             fine_partita=0;
-             printf("\n Preparati ad iniziare la partita!");
+             life=3;
+             level=1;
+             score=0;
+             final_game=0;
+             printf("\n Get ready to start the game!");
              sleep_mil(2000);
              system("cls");                        // pulisco schermo
 
 
 
-             while(fine_partita==0)
+             while(final_game==0)
              {
 
                  system("cls");
-                 livelli(campo,livello);                                                      // seleziono il livello con l'apposita funzione
-                 vittoria=0;
-                 disegna_schermo(campo,punteggio,vite,livello);      // disegno la schermata di gioco ed aspetto prima dell'inizio della partita
+                 livelli(cate,level);                                                      // seleziono il livello con l'apposita funzione
+                 victory=0;
+                 disegna_schermo(cate,score,life,level);      // disegno la schermata di gioco ed aspetto prima dell'inizio della partita
                  sleep_mil(1500);
 
-             while(vittoria==0)                   // ciclo while che fa continuare la partita finchè qualcuno non vince
+             while(victory==0)                   // ciclo while che fa continuare la partita finchè qualcuno non vince
              {
                      clear_screen();
-                     disegna_schermo(campo,punteggio,vite,livello);                 // ridisegno la schermata di gioco
+                     disegna_schermo(cate,score,life,level);                 // ridisegno la schermata di gioco
 
-                     condizione=0;                          // imposto la condizione della pressione tasto a zero
+                     condition=0;                          // imposto la condizione della pressione tasto a zero
 
 
-                     sleep_mil(velo);                          // velocità di gioco grazie ad uno sleep del programma
-                     condizione=_kbhit();                    // se durante il periodo si è premuto un tasto allora viene imagazzinato il valore come mossa del giocatore,
-                     if(condizione==1){                     // altrimenti va avanti il gioco
-                         mossa=_getch();
-                         mossa_giocatore(campo,mossa,suono);
+                     sleep_mil(speed);                          // velocità di gioco grazie ad uno sleep del programma
+                     condition=_kbhit();                    // se durante il periodo si è premuto un tasto allora viene imagazzinato il valore come mossa del giocatore,
+                     if(condition==1){                     // altrimenti va avanti il gioco
+                         move=_getch();
+                         mossa_giocatore(cate,move,sound);
                      }
 
 
-                     if(livello==4){
-                         boss(campo,diff);
-                     }else if(livello==7||livello==11||livello==18||livello==22||livello==29||livello==33){
-                         ia_boss2(campo,diff);
+                     if(level==4){
+                         boss(cate,diff);
+                     }else if(level==7||level==11||level==18||level==22||level==29||level==33){
+                         ia_boss2(cate,diff);
                      }else{
-                     intelligenza_artificiale(campo,diff);       // avvio l'intelligenza artificiale
+                     artificial_intelligence(cate,diff);       // avvio l'intelligenza artificiale
                      }
-                     esplosione(campo);                     // calcello le esplosioni se ci sono
-                     punteggio+=colpito(campo,suono);                        // controllo chi è stato colpito e calcola il punteggio
+                     esplosione(cate);                     // calcello le esplosioni se ci sono
+                     score+=attacked(cate,sound);                        // controllo chi è stato colpito e calcola il punteggio
                                           // eseguo la funzione dello spostamento dei proiettili
 
 
                      clear_screen();                          //pulisco nuovamente lo schermo, e ridisegno con i nuovi cambiamenti che ci sono stati
-                     disegna_schermo(campo,punteggio,vite,livello);
-                     proiettile(campo,suono);
+                     disegna_schermo(cate,score,life,level);
+                     proiettile(cate,sound);
 
-                     vittoria=condizione_vittoria(campo);
+                     victory=Victory_condition(cate);
 
 
-                     if(vittoria==1){
-                         printf("\n VITTORIA DEL GIOCATORE!!!\n");
-                         if(punteggio>record&&livello==33){
-                             record=punteggio;
-                             printf("\n Inserire nome per record: ");
-                             scanf("%s",nome);
+                     if(victory==1){
+                         printf("\n PLAYER'S WINNING !!!\n");
+                         if(score>record&&level==33){
+                             record=score;
+                             printf("\n Enter the name for records: ");
+                             scanf("%s",name);
                          }
                          sleep_mil(1000);                                  // controllo le condizioni di vittoria, se nessuna è rispettata proseguo col gioco
-                     }else if(vittoria==2&&vite>1){                     // giocatore morto, ma ha ancora vite, quindi respawn del giocatore
+                     }else if(victory==2&&life>1){                     // giocatore morto, ma ha ancora vite, quindi respawn del giocatore
                          system("cls");
-                         disegna_schermo(campo,punteggio,vite,livello);
-                         vite--;
+                         disegna_schermo(cate,score,life,level);
+                         life--;
                          sleep_mil(1000);
                          for(i=(dim-2);i>(dim/2);i--){
                            for(l=0;l<dim;l++){               // Svuoto il campo di proiettili sorpa il giocatore
-                         campo[i][l]=0;
+                         cate[i][l]=0;
                          }
                        }
-                       campo[dim-2][(dim/2)-1]=2;             // respawn
+                       cate[dim-2][(dim/2)-1]=2;             // respawn
                        system("cls");
-                       disegna_schermo(campo,punteggio,vite,livello);
+                       disegna_schermo(cate,score,life,level);
                        sleep_mil(500);
-                       vittoria=0;
+                       victory=0;
 
 
-                     }else if(vittoria==2){
-                         vite--;
+                     }else if(victory==2){
+                         life--;
                          system("cls");                            // morte giocatore senza vite
-                         disegna_schermo(campo,punteggio,vite,livello);
-                         printf("\n IL GIOCATORE HA PERSO!!!\n");
-                         if(punteggio>record){
-                             record=punteggio;
-                             printf("\n Inserire nome per record: ");
-                             scanf("%s",nome);
+                         disegna_schermo(cate,score,life,level);
+                         printf("\n THE PLAYER LOSE !!!\n");
+                         if(score>record){
+                             record=score;
+                             printf("\n Enter the name for records: ");
+                             scanf("%s",name);
                          }
                          sleep_mil(1000);
-                     }else if(vittoria==3){
-                         printf("\n ERRORE RICERCA CONDIZIONE VITTORIA!!!\n");
+                     }else if(victory==3){
+                         printf("\n ERROR SEARCH CONDITION VOCTORY!!!\n");
                          sleep_mil(3000);
                      }
 
 
                  }
-                 if(vittoria==1&&livello<11){
-                     livello++;
-                     printf("\nPREPARATI AL PROSSIMO LIVELLO!!!\n");         // vittoria e avanzamento livello
+                 if(victory==1&&level<11){
+                     level++;
+                     printf("\nPREPARE FOR THE NEXT LEVEL!!!\n");         // vittoria e avanzamento livello
                      Sleep(3000);
-                     if(diff==10) punteggio+=10;
-                     if(diff==7) punteggio+=20;
-                     if(livello%3==0){
-                         printf("  VITA BONUS !!!\n");
+                     if(diff==10) score+=10;
+                     if(diff==7) score+=20;
+                     if(level%3==0){
+                         printf("  LIFE BONUS !!!\n");
                          sleep_mil(1000);
-                         vite++;
+                         life++;
                      }
 
                  }else{
                      system("cls");
-                     if(vittoria==1) printf("\n Congratulazioni, hai terminato sto gioco del cazzo!!!!");
-                     printf("\n Premere 1 per giocare di nuovo oppure un tasto per tornare al menu: ");
+                     if(victory==1) printf("\n Congratulations, you finished I'm fucking game!!!!");
+                     printf("\n Press 1 to play again or a key to return to the menu: ");
                      sleep_mil(500);
                      fflush(stdin);
-                     scanf("%d",&scelta);
-                     if(scelta!=1) scelta=6;
-                     fine_partita=1;
+                     scanf("%d",&selection);
+                     if(selection!=1) selection=6;
+                     final_game=1;
                  }
              }
              break;
 
              case 2:
                system("cls");
-               printf("\n Comandi di gioco:                          ");
-               printf("\n Utilizza il tastierino numerico per giocare");
-               printf("\n 4: per andare a sinistra                   ");
-               printf("\n 6: per andare a destra                     ");
-               printf("\n 5: per sparare                          \n ");
-               printf("\n Abbatti le astronavi nemiche per vincere, hai 3 vite iniziali.\n");
-               printf("\n Premere un tasto per tornare indietro: ");
+				printf("\n Game controls:                             ");
+                printf("\n Use the numeric keypad to play             ");
+                printf("\n 4: To go left                              ");
+                printf("\n 6: To go right                             ");
+                printf("\n 5: To shoot                             \n ");
+                printf("\n Lower the enemy spaceships to win, to the initial 3 lives.\n");
+                printf("\n Press a key to go back                   : ");
                fflush(stdin);
-               scanf("%d",&scelta);
-               scelta=6;
+               scanf("%d",&selection);
+               selection=6;
               break;
 
              case 3:
                system("cls");
-               printf("\n Seleziona la velocita' di gioco: 1) normale 2)veloce 3)insane\n velocita': ");
-               scanf("%d",&velo);
-             if(velo==2){
-                 velo=50;
-             }else if(velo==3){
-                 velo=25;
-             }else if(velo==4){
-                 velo=50;
-                 vite=15;
+               printf("\n Select the speed of play: 1) Normal 2) Fast 3) Crazy\n speed': ");
+               scanf("%d",&speed);
+             if(speed==2){
+                 speed=50;
+             }else if(speed==3){
+                 speed=25;
+             }else if(speed==4){
+                 speed=50;
+                 life=15;
              }
              else{
-                 velo=75;
+                 speed=75;
              }
-             printf("\n Seleziona la difficolta': 1)facile 2)normale 3)difficile:\n difficolta': ");
+             printf("\n Select difficulty: 1) easy 2) normal 3) difficult\n difficulty': ");
              scanf("%d",&diff);
              if(diff==3){
                  diff=7;
@@ -1640,30 +1640,30 @@ int main()                                    // funzione principale del gioco
              else{
                  diff=15;
              }
-             printf("\n Seleziona il suono: 1)on 2)off\n suono: ");
-             scanf("%d",&suono);
+             printf("\n Select sound: 1) on 2) off sound: ");
+             scanf("%d",&sound);
 
-              printf("\n Premere un tasto per tornare indietro: ");
-              scanf("%d",&scelta);
-              scelta=6;
+              printf("\n Press a key to go back: ");
+              scanf("%d",&selection);
+              selection=6;
               break;
 
               case 4:
                   system("cls");
                   printf("\n       SPACE INVATERS VER. 0.4  \n");
-                  printf("\n Gioco realizzato per noia e per cagature di cazzo varie.");
-                  printf("\n Interamente programmato in c dall'unico e inimitabile sto cazzo!");
-                  printf("\n Tutti i diritti riservati a me\n nel caso di utilizzo non autorizzato di questo programma");
-                  printf("\n verrete linciati da una folla di pinguini!!!");
-                  printf("\n\n Attuale record: %d eseguito da %s",record,nome);
-                  printf("\n Premere un tasto per tornare indietro: ");
+                  printf("\n Game made for boredom and for various fucking sticks.");
+                  printf("\n Completely programmed in c from the only and inimitable I'm fucking!");
+                  printf("\n All rights reserved to me in the event of unauthorized use of this program");
+                  printf("\n You will be lynched by a crowd of penguins!!!");
+                  printf("\n\n Current record: %d performed by %s",record,name);
+                  printf("\n Press a key to go back: ");
                   fflush(stdin);
-                  scanf("%d",&scelta);
-                  scelta=6;
+                  scanf("%d",&selection);
+                  selection=6;
                   break;
 
               case 5:
-                  printf("\n Uscita dal gioco... sfigato/a!!!");
+                  printf("\n Get out of the game... missed!!!");
                   sleep_mil(1000);
                  break;
 
@@ -1673,19 +1673,18 @@ int main()                                    // funzione principale del gioco
 
     fp=fopen("dati.dat","w");
     if(fp==NULL){
-        printf("\n ERRORE APERTURA FILE!");
+        printf("\n ERROR OPENING FILE!");
         sleep_mil(3000);
         return 1;
     }
-    fprintf(fp,"%d %d %d %d %s",velo,diff,suono,record,nome);
+    fprintf(fp,"%d %d %d %d %s",speed,diff,sound,record,name);
     fclose(fp);
 
 
 
 
-    printf("\n Grazie per aver giocato!\n");
+    printf("\n Thank you for playing!\n");
     sleep_mil(3000);
     return 0;
 }
-
 
