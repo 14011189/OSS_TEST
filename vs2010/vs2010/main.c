@@ -993,25 +993,27 @@ void mossa_giocatore(int vet[dim][dim],int azione,int sound)                    
 
 }
 
-void livelli(int vet[dim][dim],int lv)
+void game_level(int vet[dim][dim],int lv)	//레벨별 화면구성 배열 값 설정
 {
     int i,l;
 
-    for(i=0;i<dim;i++){
-        for(l=0;l<dim;l++){               // Svuoto il campo
+    for(i=0;i<dim;i++){             //vet[][] 필드 초기화
+        for(l=0;l<dim;l++){         //empty field
             vet[i][l]=0;
         }
     }
 
-    switch(lv)
+    switch(lv)	 //lv->레벨(level)
     {
     case 1:
     vet[dim-2][(dim/2)-1]=2;
     vet[3][10]=3;
 
+     //알고리즘에 따라 적객체 입력
+    //insert enemies by algorithm
 
      for(i=1;i<2;i++){
-        for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+        for(l=1;l<dim-1;l++){
             vet[i][l]=3;
             l++;
         }
@@ -1023,13 +1025,13 @@ void livelli(int vet[dim][dim],int lv)
 
      for(i=1;i<3;i++){
         if(i==1){
-         for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+         for(l=1;l<dim-1;l++){
             vet[i][l]=3;
             l++;
         }
         }
         if(i==2){
-            for(l=2;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=2;l<dim-1;l++){
             vet[i][l]=3;
             l++;
         }
@@ -1042,7 +1044,7 @@ void livelli(int vet[dim][dim],int lv)
 
 
      for(i=1;i<2;i++){
-        for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+        for(l=1;l<dim-1;l++){
             vet[i][l]=7;
             l++;
         }
@@ -1061,7 +1063,7 @@ void livelli(int vet[dim][dim],int lv)
 
 
        for(i=1;i<2;i++){
-          for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+          for(l=1;l<dim-1;l++){
               vet[i][l]=12;
               l++;
           }
@@ -1073,13 +1075,13 @@ void livelli(int vet[dim][dim],int lv)
 
      for(i=1;i<3;i++){
         if(i==1){
-         for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+         for(l=1;l<dim-1;l++){
             vet[i][l]=12;
             l++;
         }
         }
         if(i==2){
-            for(l=2;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=2;l<dim-1;l++){
             vet[i][l]=12;
             l++;
         }
@@ -1095,19 +1097,19 @@ void livelli(int vet[dim][dim],int lv)
         vet[dim-2][(dim/2)-1]=2;
          for(i=1;i<4;i++){
         if(i==1){
-         for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+         for(l=1;l<dim-1;l++){
             vet[i][l]=3;
             l++;
         }
         }
         if(i==2){
-            for(l=2;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=2;l<dim-1;l++){
             vet[i][l]=3;
             l++;
         }
         }
         if(i==3){
-            for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=1;l<dim-1;l++){
             vet[i][l]=3;
             l++;
         }
@@ -1118,19 +1120,19 @@ void livelli(int vet[dim][dim],int lv)
         vet[dim-2][(dim/2)-1]=2;
          for(i=1;i<4;i++){
         if(i==1){
-         for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+         for(l=1;l<dim-1;l++){
             vet[i][l]=12;
             l++;
         }
         }
         if(i==2){
-            for(l=2;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=2;l<dim-1;l++){
             vet[i][l]=12;
             l++;
         }
         }
         if(i==3){
-            for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=1;l<dim-1;l++){
             vet[i][l]=12;
             l++;
         }
@@ -1142,13 +1144,13 @@ void livelli(int vet[dim][dim],int lv)
 
      for(i=1;i<3;i++){
         if(i==1){
-         for(l=1;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+         for(l=1;l<dim-1;l++){
             vet[i][l]=7;
             l++;
         }
         }
         if(i==2){
-            for(l=2;l<dim-1;l++){          //Inserisco i nemici secondo un algoritmo
+            for(l=2;l<dim-1;l++){
             vet[i][l]=7;
             l++;
         }
